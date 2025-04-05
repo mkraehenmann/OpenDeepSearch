@@ -19,7 +19,7 @@ def grade_row(row_data):
     
     try:
         output = litellm.completion(
-            model="openrouter/google/gemini-2.0-flash-001",
+            model="fireworks_ai/llama-v3p1-70b-instruct",#"openrouter/google/gemini-2.0-flash-001",
             messages=[{"role": "user", "content": input_prompt}],
             temperature=0.0
         )['choices'][0]['message']['content']
@@ -58,6 +58,11 @@ def autograde_df(df_path, num_cpus=4):
     # Save the updated dataframe back to the same file
     df.to_json(df_path, orient='records', lines=True)
     print("Grading completed and results saved!")
+
+    correct = sum(map(lambda x: 1 if x == 'A' else 0, final_grades))
+    accuracy = correct / len(final_grades)
+
+    print(f"Accuracy: {accuracy}")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Auto-grade answers in a DataFrame')
