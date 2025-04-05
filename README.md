@@ -379,3 +379,10 @@ If you use `OpenDeepSearch` in your works, please cite it using the following Bi
 ## Contact 📩
 
 For questions or collaborations, open an issue or reach out to the maintainers.
+#!/bin/bash
+
+## EXPORT 
+export LITELLM_MODEL_ID='fireworks_ai/accounts/fireworks/models/llama-v3-70b-instruct'
+export LITELLM_SEARCH_MODEL_ID='fireworks_ai/accounts/fireworks/models/llama-v3-70b-instruct'
+export LITELLM_ORCHESTRATOR_MODEL_ID='fireworks_ai/accounts/fireworks/models/llama-v3-70b-instruct'
+export LITELLM_EVAL_MODEL_ID='fireworks_ai/accounts/fireworks/models/llama-v3-70b-instruct'
