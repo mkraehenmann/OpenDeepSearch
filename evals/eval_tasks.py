@@ -126,7 +126,7 @@ def answer_single_question(example, model, answers_file, action_type, search_mod
         agent = model
     elif action_type == "codeact":
         agent = CodeAgent(
-            tools=[OpenDeepSearchTool(model_name=search_model_id or model.model_id)],
+            tools=[OpenDeepSearchTool(model_name=search_model_id or model.model_id, reranker="jina")],
             model=model,
             additional_authorized_imports=["numpy"],
             max_steps=15,
