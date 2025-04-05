@@ -1,9 +1,9 @@
 from dataclasses import dataclass
 from typing import List, Optional, Tuple
-from opendeepsearch.context_scraping.crawl4ai_scraper import WebScraper
-from opendeepsearch.ranking_models.infinity_rerank import InfinitySemanticSearcher
-from opendeepsearch.ranking_models.jina_reranker import JinaReranker
-from opendeepsearch.ranking_models.chunker import Chunker 
+from src.opendeepsearch.context_scraping.crawl4ai_scraper import WebScraper
+from src.opendeepsearch.ranking_models.infinity_rerank import InfinitySemanticSearcher
+from src.opendeepsearch.ranking_models.jina_reranker import JinaReranker
+from src.opendeepsearch.ranking_models.chunker import Chunker 
 
 @dataclass
 class Source:

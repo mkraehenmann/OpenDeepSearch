@@ -1,6 +1,6 @@
 from typing import Optional, Literal
 from smolagents import Tool
-from opendeepsearch.ods_agent import OpenDeepSearchAgent
+from src.opendeepsearch.ods_agent import OpenDeepSearchAgent
 
 class OpenDeepSearchTool(Tool):
     name = "web_search"

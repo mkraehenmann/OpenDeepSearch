@@ -11,8 +11,8 @@ import json
 from crawl4ai import AsyncWebCrawler, BrowserConfig, CrawlerRunConfig
 from vllm import LLM, SamplingParams
 
-from opendeepsearch.context_scraping.extraction_result import ExtractionResult
-from opendeepsearch.context_scraping.utils import clean_html, get_wikipedia_content
+from src.opendeepsearch.context_scraping.extraction_result import ExtractionResult
+from src.opendeepsearch.context_scraping.utils import clean_html, get_wikipedia_content
 
 @dataclass
 class LLMConfig:

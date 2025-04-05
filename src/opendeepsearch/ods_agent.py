@@ -1,11 +1,11 @@
 from typing import Optional, Dict, Any, Literal
-from opendeepsearch.serp_search.serp_search import create_search_api, SearchAPI
-from opendeepsearch.context_building.process_sources_pro import SourceProcessor
-from opendeepsearch.context_building.build_context import build_context
+from src.opendeepsearch.serp_search.serp_search import create_search_api, SearchAPI
+from src.opendeepsearch.context_building.process_sources_pro import SourceProcessor
+from src.opendeepsearch.context_building.build_context import build_context
 from litellm import completion, utils
 from dotenv import load_dotenv
 import os
-from opendeepsearch.prompts import SEARCH_SYSTEM_PROMPT
+from src.opendeepsearch.prompts import SEARCH_SYSTEM_PROMPT
 import asyncio
 import nest_asyncio
 load_dotenv()

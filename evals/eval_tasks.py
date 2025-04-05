@@ -6,13 +6,14 @@ import threading
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
+from src.opendeepsearch.wolfram_tool import WolframAlphaTool
 
 import datasets
 import pandas as pd
 from datasets import Dataset
 from dotenv import load_dotenv
 from tqdm import tqdm
-from opendeepsearch import OpenDeepSearchTool
+from src.opendeepsearch import OpenDeepSearchTool
 
 from smolagents import (
     AgentError,
@@ -48,7 +49,7 @@ def parse_arguments():
     parser.add_argument(
         "--search-model-id",
         type=str,
-        default="fireworks_ai/accounts/fireworks/models/llama-v3p3-70b-instruct",
+        default=f"{os.getenv('LITELLM_SEARCH_MODEL_ID')}",
         help="The model ID to use for the search tool (defaults to same as model-id)",
     )
     parser.add_argument(
@@ -61,7 +62,7 @@ def parse_arguments():
     parser.add_argument(
         "--model-id",
         type=str,
-        default="fireworks_ai/accounts/fireworks/models/qwq-32b",
+        default=f"{os.getenv('LITELLM_MODEL_ID')}",
         help="The model ID to use for the specified model type",
     )
     parser.add_argument(
@@ -130,9 +131,13 @@ def answer_single_question(example, model, answers_file, action_type, search_mod
             additional_authorized_imports=["numpy"],
             max_steps=15,
         )
+
+    
+
     elif action_type == "tool-calling":
+        wolfram_tool = WolframAlphaTool(app_id=os.environ["WOLFRAM_ALPHA_APP_ID"])
         agent = ToolCallingAgent(
-            tools=[OpenDeepSearchTool(model_name=search_model_id or model.model_id), PythonInterpreterTool()],
+            tools=[OpenDeepSearchTool(model_name=search_model_id or model.model_id), PythonInterpreterTool(), wolfram_tool],
             model=model,
             additional_authorized_imports=["numpy"],
             max_steps=15,
