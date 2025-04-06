@@ -15,6 +15,44 @@ class WolframAlphaTool(Tool):
         },
     }
     output_type = "string"
+
+    examples = """
+    Task: "Calculate the limit of (1 + 1/x)^x as x approaches infinity."
+    Action: { "name": "calculate", "arguments": {"query": "limit (1 + 1/x)^x as x -> infinity"} } 
+    Observation: "e" 
+    Action: { "name": "final_answer", "arguments": {"answer": "The limit of (1 + 1/x)^x as x approaches infinity is e."} }
+
+    Task: "Evaluate the integral of e^x from 0 to 1."
+    Action: { "name": "calculate", "arguments": {"query": "integral of e^x from 0 to 1"} } 
+    Observation: "e - 1" 
+    Action: { "name": "final_answer", "arguments": {"answer": "The integral of e^x from 0 to 1 is e - 1."} }
+
+    Task: "What is the determinant of the matrix [[1, 2], [3, 4]]?"
+    Action: { "name": "calculate", "arguments": {"query": "determinant of [[1, 2], [3, 4]]"} } 
+    Observation: "-2" 
+    Action: { "name": "final_answer", "arguments": {"answer": "The determinant of the matrix [[1, 2], [3, 4]] is -2."} }
+
+    Task: "Solve the system: x + y = 5 and x - y = 1."
+    Action: { "name": "calculate", "arguments": {"query": "solve {x + y = 5, x - y = 1}"} } 
+    Observation: "x = 3, y = 2" 
+    Action: { "name": "final_answer", "arguments": {"answer": "The solution to the system is x = 3 and y = 2."} }
+
+    Task: "What is the factorial of 7?"
+    Action: { "name": "calculate", "arguments": {"query": "7!"} } 
+    Observation: "5040" 
+    Action: { "name": "final_answer", "arguments": {"answer": "The factorial of 7 is 5040."} }
+
+    Task: "Solve the equation 2^x = 32."
+    Action: { "name": "calculate", "arguments": {"query": "solve 2^x = 32"} } 
+    Observation: "x = 5" 
+    Action: { "name": "final_answer", "arguments": {"answer": "The solution to the equation 2^x = 32 is x = 5."} }
+
+    Task: "Find the inverse of the matrix [[2, 1], [5, 3]]."
+    Action: { "name": "calculate", "arguments": {"query": "inverse of [[2, 1], [5, 3]]"} } 
+    Observation: "[[3, -1], [-5, 2]]" 
+    Action: { "name": "final_answer", "arguments": {"answer": "The inverse of the matrix [[2, 1], [5, 3]] is [[3, -1], [-5, 2]]."} }
+
+    """
     
     def __init__(self, app_id: str):
         super().__init__()
