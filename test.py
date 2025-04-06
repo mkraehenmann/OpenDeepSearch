@@ -29,7 +29,7 @@ react_agent = ToolCallingAgent(
 )
 
 # Example query for the React Agent
-query = "What is the distance, in metres, between the Colosseum in Rome and the Rialto bridge in Venice"
+query = "Write a function that merges two sorted lists into a new sorted list. [1,4,6],[2,3,5] to [1,2,3,4,5,6]. You can do this quicker than concatenating them followed by a sort."
 result = react_agent.run(query)
 
 print(result)
