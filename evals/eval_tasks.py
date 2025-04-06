@@ -49,7 +49,7 @@ def parse_arguments():
     parser.add_argument(
         "--search-model-id",
         type=str,
-        default="fireworks_ai/accounts/fireworks/models/qwq-32b",
+        default=f"{os.getenv('LITELLM_SEARCH_MODEL_ID')}",
         help="The model ID to use for the search tool (defaults to same as model-id)",
     )
     parser.add_argument(
@@ -62,7 +62,7 @@ def parse_arguments():
     parser.add_argument(
         "--model-id",
         type=str,
-        default="fireworks_ai/accounts/fireworks/models/qwq-32b",
+        default=f"{os.getenv('LITELLM_MODEL_ID')}",
         help="The model ID to use for the specified model type",
     )
     parser.add_argument(
@@ -83,6 +83,12 @@ def parse_arguments():
         type=int,
         default=1,
         help="Number of trials to run for each evaluation",
+    )
+    parser.add_argument(
+        "--num_samples",
+        type=int,
+        default=-1,
+        help="The number of samples to consider from the datasets",
     )
     return parser.parse_args()
 
@@ -228,6 +234,14 @@ if __name__ == "__main__":
     args = parse_arguments()
 
     eval_ds = load_eval_dataset(args.eval_tasks)
+
+    # Just keep Frames
+    eval_ds = {k: v for k, v in eval_ds.items() if "frames" in k}
+
+
+    if args.num_samples != -1:
+        for task in eval_ds:
+            eval_ds[task] = eval_ds[task].select(range(args.num_samples))
 
     if args.model_type == "LiteLLMModel":
         model = LiteLLMModel(
