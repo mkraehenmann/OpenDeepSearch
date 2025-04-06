@@ -242,6 +242,95 @@ Action:
 }
                                
 ---
+Task: "When was Alan Turing born?"
+
+Action:
+{
+  "name": "wikidata",
+  "arguments": {
+    "query": "PREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX wd: <http://www.wikidata.org/entity/>\nSELECT ?birthDate WHERE { wd:Q7251 wdt:P569 ?birthDate. }"
+  }
+}
+Observation: "1912-06-23T00:00:00Z"
+
+Action:
+{
+  "name": "final_answer",
+  "arguments": {
+    "answer": "Alan Turing was born on 1912-06-23."
+  }
+}
+
+---
+Task: "What year was the Eiffel Tower completed?"
+
+Action:
+{
+  "name": "wikidata",
+  "arguments": {
+    "query": "PREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX wd: <http://www.wikidata.org/entity/>\nSELECT ?completion WHERE { wd:Q243 wdt:P571 ?completion. }"
+  }
+}
+Observation: "1889-03-31T00:00:00Z"
+
+Action:
+{
+  "name": "final_answer",
+  "arguments": {
+    "answer": "The Eiffel Tower was completed on 1889-03-31."
+  }
+}
+
+---
+Task: "Who discovered penicillin and when?"
+
+Action:
+{
+  "name": "wikidata",
+  "arguments": {
+    "query": "PREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX wd: <http://www.wikidata.org/entity/>\nSELECT ?personLabel WHERE { wd:Q42240 wdt:P61 ?person . SERVICE wikibase:label { bd:serviceParam wikibase:language 'en'. } }"
+  }
+}
+Observation: "Alexander Fleming"
+
+Action:
+{
+  "name": "wikidata",
+  "arguments": {
+    "query": "PREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX wd: <http://www.wikidata.org/entity/>\nSELECT ?date WHERE { wd:Q42240 wdt:P575 ?date. }"
+  }
+}
+Observation: "1928-09-28T00:00:00Z"
+
+Action:
+{
+  "name": "final_answer",
+  "arguments": {
+    "answer": "Alexander Fleming discovered penicillin in 1928."
+  }
+}
+
+---
+Task: "What country is the city of Kyoto in?"
+
+Action:
+{
+  "name": "wikidata",
+  "arguments": {
+    "query": "PREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nSELECT ?countryLabel WHERE { wd:Q34600 wdt:P17 ?country . SERVICE wikibase:label { bd:serviceParam wikibase:language 'en'. } }"
+  }
+}
+Observation: "Japan"
+
+Action:
+{
+  "name": "final_answer",
+  "arguments": {
+    "answer": "Kyoto is located in Japan."
+  }
+}
+---
+                               
 Remember: You only have access to these tools:
 {%- for tool in tools.values() %}
 - {{ tool.name }}: {{ tool.description }}

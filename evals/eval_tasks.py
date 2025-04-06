@@ -7,6 +7,8 @@ import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from opendeepsearch.fact_checker import CodeRunnerTool
+from opendeepsearch.sparql_wikipedia import WikidataSPARQLTool
+from opendeepsearch.wolfram_tool import WolframAlphaTool
 
 import datasets
 import pandas as pd
@@ -131,15 +133,19 @@ def answer_single_question(example, model, answers_file, action_type, search_mod
     if action_type == "vanilla":
         agent = model
     elif action_type == "codeact":
+        wikitool = WikidataSPARQLTool()
+        wikitool.setup()
+        codetool = CodeRunnerTool()
+        wolfram_tool = WolframAlphaTool(app_id=os.environ["WOLFRAM_ALPHA_APP_ID"])
         agent = CodeAgent(
-            tools=[OpenDeepSearchTool(model_name=search_model_id or model.model_id)],
+            tools=[OpenDeepSearchTool(model_name=search_model_id or model.model_id, reranker="jina"), wikitool, codetool, wolfram_tool],
             model=model,
             additional_authorized_imports=["numpy"],
             max_steps=15,
         )
     elif action_type == "tool-calling":
         agent = ToolCallingAgent(
-            tools=[OpenDeepSearchTool(model_name=search_model_id or model.model_id), PythonInterpreterTool()],
+            tools=[OpenDeepSearchTool(model_name=search_model_id or model.model_id, reranker="jina"), PythonInterpreterTool()],
             model=model,
             additional_authorized_imports=["numpy"],
             max_steps=15,
