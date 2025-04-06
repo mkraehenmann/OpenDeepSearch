@@ -6,6 +6,7 @@ import threading
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
+from opendeepsearch.fact_checker import CodeRunnerTool
 
 import datasets
 import pandas as pd
@@ -48,7 +49,7 @@ def parse_arguments():
     parser.add_argument(
         "--search-model-id",
         type=str,
-        default="fireworks_ai/accounts/fireworks/models/llama-v3p3-70b-instruct",
+        default="fireworks_ai/accounts/fireworks/models/qwq-32b",
         help="The model ID to use for the search tool (defaults to same as model-id)",
     )
     parser.add_argument(
